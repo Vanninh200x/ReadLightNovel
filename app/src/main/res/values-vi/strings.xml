@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    Main-->
+    <string name="app_name">LightNovel</string>
+    <string name="home">Home</string>
+    <string name="genres">Thể loại</string>
+    <string name="search">Tìm</string>
+    <string name="your_book">Của bạn</string>
+    <string name="menu">Menu</string>
+
+
+    <!--    Menu-->
+    <string name="sign_up_in">Đăng nhập / Đăng Kí</string>
+    <string name="sign_in">Đăng nhập</string>
+    <string name="welcome">Chào mừng tới Free Novel Club</string>
+
+    <string name="sign_up"> Đăng ký</string>
+    <string name="email">Tài khoản Email</string>
+    <string name="nick_name">Tên tài khoản</string>
+    <string name="passwd">Mật Khẩu</string>
+
+    <string name="community">Cộng đồng</string>
+    <string name="upgrade_vip">Thành viên VIP</string>
+    <string name="review_rating">Đánh giá App</string>
+    <string name="share_to_friend">Chia sẻ với bạn bé</string>
+    <string name="suggest_story">Đề xuất truyện</string>
+    <string name="bug_report">Báo cáo bug</string>
+    <string name="terms_conditions">Điều khoản</string>
+    <string name="policy">Chính sách</string>
+    <string name="version">Phiên bản: 2.0.1</string>
+    <string name="dont_have_an_account">Chưa có tài khoản?</string>
+    <string name="forget_password">Quên mật khẩu?</string>
+    <string name="reset_password"> Đặt lại mật khẩu</string>
+    <string name="incorrect_account">Tài khoản hoặc mật khẩu không chính xác</string>
+    <string name="login_success">Đăng nhập thành công</string>
+    <string name="wrong_account">"Sai tài khoản hoặc mật khẩu"</string>
+    <string name="connection_errors">"Lỗi kết nối"</string>
+    <string name="loading">Đang tải...</string>
+
+
+    <!--    Genres-->
+    <string name="shounen">Shounen</string>
+    <string name="harem">Harem</string>
+    <string name="comedy">Comedy</string>
+    <string name="martial_arts">Martial Arts</string>
+    <string name="school_life">School Life</string>
+    <string name="mystery">Mystery</string>
+    <string name="shoujo">Shoujo</string>
+    <string name="romance">Romance</string>
+    <string name="sci_fi">Sci-fi</string>
+    <string name="gender_bender">Gender Bender</string>
+    <string name="mature">Mature</string>
+    <string name="fantasy">Fantasy</string>
+    <string name="horror">Horror</string>
+    <string name="drama">Drama</string>
+    <string name="tragedy">Tragedy</string>
+    <string name="supernatural">Supernatural</string>
+    <string name="ecchi">Ecchi</string>
+    <string name="xuanhuan">Xuanhuan</string>
+    <string name="adventure">Adventure</string>
+    <string name="action">Action</string>
+    <string name="psychological">Psychological</string>
+    <string name="xianxia">Xianxia</string>
+    <string name="wuxia">Wuxia</string>
+    <string name="historical">Historical</string>
+    <string name="slice_of_life">Slice of Life</string>
+    <string name="seinen">Seinen</string>
+    <string name="lolicon">Lolicon</string>
+    <string name="adult">Adult</string>
+    <string name="josei">Josei</string>
+    <string name="sports">Sports</string>
+    <string name="smut">Smut</string>
+    <string name="mecha">Mecha</string>
+    <string name="yaoi">Yaoi</string>
+    <string name="shounen_ai">Shounen Ai</string>
+    <string name="heart">heart</string>
+    <string name="description">Tóm lược</string>
+    <string name="chapter">Chương</string>
+    <string name="comments">Bình Luận</string>
+
+    <string name="content">With the idea of imparting programming
+      knowledge, Mr. Sandeep Jain, an IIT Roorkee alumnus started a
+      dream, GeeksforGeeks. Whether programming excites you or you feel
+      stifled, wondering how to prepare for interview questions or how to
+      ace data structures and algorithms, GeeksforGeeks is a one-stop solution.
+      With every tick of time, we are adding arrows in our quiver. From articles
+      on various computer science subjects to programming problems for practice,
+      from basic to premium courses, from technologies to entrance examinations,
+      we have been building ample content with superior quality. In a short span,
+      we have built a community of 1 Million+ Geeks around the world, 20,000+
+      Contributors and 500+ Campus Ambassadors in various colleges across the nation.
+      Our success stories include a lot of students who benefitted in their placements
+      and landed jobs at tech giants. Our vision is to build a gigantic network of
+      geeks and we are only a fraction of it yet.
+  </string>
+    <string name="type_your_search_here">Nhập truyện bạn muốn tìm</string>
+    <string name="not_found_search">Không tìm thấy. Đề nghị bạn tìm chữ ngắn hơn</string>
+    <string name="see_more">Xem thêm</string>
+    <string name="last_chapter">Chương cuối</string>
+    <string name="log_out">Đăng xuất</string>
+    <string name="rating">Đánh giá</string>
+    <string name="reset_succes">Reset password thành công, vui lòng kiểm tra Email</string>
+    <string name="reset_fail">Reset thất bại vui lòng kiềm tra lại thông tin!.</string>
+    <string name="your_cmt">Comment của bạn</string>
+    <string name="send">Gửi</string>
+    <string name="check_your_info">Kiểm tra lại thông tin</string>
+    <string name="is_rating">Đã đánh giá</string>
+    <string name="require_login">Chưa đăng nhập</string>
+
+</resources>
