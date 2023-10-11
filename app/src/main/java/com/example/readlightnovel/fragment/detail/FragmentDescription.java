@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +13,12 @@ import android.widget.Toast;
 import com.example.readlightnovel.R;
 import com.example.readlightnovel.api.RequestAPI;
 import com.example.readlightnovel.callback.CallBackRate;
+import com.example.readlightnovel.database.SaveData;
 import com.example.readlightnovel.databinding.FragmentDescriptionBinding;
 import com.example.readlightnovel.dialog.DialogLoading;
-import com.example.readlightnovel.fragment.sub.DialogSignInFragment;
 import com.example.readlightnovel.fragment.sub.DialogSignUpFragment;
 import com.example.readlightnovel.model.comic.Data;
 import com.example.readlightnovel.model.rate.PickRate;
-import com.example.readlightnovel.utils.desa.DialogUtils;
 import com.orhanobut.hawk.Hawk;
 
 public class FragmentDescription extends Fragment {
@@ -29,6 +27,7 @@ public class FragmentDescription extends Fragment {
     private DialogLoading dialogLoading;
     private long x;
     private CallBackRate callBackRate;
+    private SaveData saveData;
 
 
     public FragmentDescription(Data data, CallBackRate callBackRate) {
@@ -36,6 +35,9 @@ public class FragmentDescription extends Fragment {
         this.callBackRate = callBackRate;
     }
 
+    public FragmentDescription(SaveData saveData) {
+        this.saveData = saveData;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +50,9 @@ public class FragmentDescription extends Fragment {
     }
 
     private void initListener() {
+        if (data == null){
+            binding.rattingBar.setVisibility(View.GONE);
+        }
         binding.rattingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -67,7 +72,12 @@ public class FragmentDescription extends Fragment {
 
     private void initView() {
         dialogLoading = new DialogLoading();
-        binding.tvDescription.setText(data.getDescription());
+        if (data!= null){
+            binding.tvDescription.setText(data.getDescription());
+        }else{
+            binding.tvDescription.setText(saveData.getDescription());
+
+        }
 
         if (Hawk.get("user_rate") != null && Hawk.get("user_id") != null) {
             x = Hawk.get("user_rate");

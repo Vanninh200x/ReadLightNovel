@@ -1,7 +1,15 @@
-package com.example.readlightnovel.model.comic;
+package com.example.readlightnovel.database;
 
-public class Data {
-    private int id;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import com.example.readlightnovel.model.comic.Data;
+
+@Entity(tableName = "SaveData")
+public class SaveData  {
+
+    @PrimaryKey
+    public int id;
     private String avatarUrl;
     private boolean status;
     private String description;
@@ -9,22 +17,14 @@ public class Data {
     private boolean isDone;
     private float star;
     private String category;
+
     private int chapter;
 
-    public Data() {
+
+    public SaveData(){
     }
 
-    public Data(int id, String avatarUrl, boolean status, String description, String title, boolean isDone, float star, String category, int chapter) {
-        this.id = id;
-        this.avatarUrl = avatarUrl;
-        this.status = status;
-        this.description = description;
-        this.title = title;
-        this.isDone = isDone;
-        this.star = star;
-        this.category = category;
-        this.chapter = chapter;
-    }
+
 
     public int getId() {
         return id;
@@ -74,14 +74,6 @@ public class Data {
         isDone = done;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public float getStar() {
         return star;
     }
@@ -90,22 +82,25 @@ public class Data {
         this.star = star;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public int getChapter() {
         return chapter;
     }
-
 
     public void setChapter(int chapter) {
         this.chapter = chapter;
     }
 
-    public String showChapter() {
-        return isDone() ? "[Full]: " + getChapter() + " Chapter" : getChapter() + " Chapter";
-    }
-
     @Override
     public String toString() {
-        return "Data{" +
+        return "SaveData{" +
                 "id=" + id +
                 ", avatarUrl='" + avatarUrl + '\'' +
                 ", status=" + status +
@@ -116,5 +111,9 @@ public class Data {
                 ", category='" + category + '\'' +
                 ", chapter=" + chapter +
                 '}';
+    }
+
+    public String showChapter() {
+        return isDone() ? "[Full]: " + getChapter() + " Chapter" : getChapter() + " Chapter";
     }
 }

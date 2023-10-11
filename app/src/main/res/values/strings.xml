@@ -103,5 +103,6 @@
     <string name="check_your_info">Please check your information</string>
     <string name="is_rating">Rating Done!</string>
     <string name="require_login">Please login</string>
+    <string name="text_offline">You are offline</string>
 
 </resources>

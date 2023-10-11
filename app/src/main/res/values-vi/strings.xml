@@ -106,5 +106,6 @@
     <string name="check_your_info">Kiểm tra lại thông tin</string>
     <string name="is_rating">Đã đánh giá</string>
     <string name="require_login">Chưa đăng nhập</string>
+    <string name="text_offline">Bạn đang offline</string>
 
 </resources>

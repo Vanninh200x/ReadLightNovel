@@ -47,7 +47,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RequestAPI {
 // 192.168.137.1
-    private static final String URL = "http://192.168.137.1:8080/api/";
+    private static final String URL = "http://192.168.0.104:8080/api/";
 //192.168.159.1
     public static void postRequestLogin(String account, String password, TextView tv, Dialog dialog, CallBackUser myCallBack) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(URL).addConverterFactory(GsonConverterFactory.create()).build();

@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         userId = (Hawk.get("user_id")) == null ? -1 : Hawk.get("user_id");
+
     }
 
     private void initListener() {

@@ -10,7 +10,7 @@ import com.example.readlightnovel.fragment.genres.GenresFragment;
 import com.example.readlightnovel.fragment.home.HomeFragment;
 import com.example.readlightnovel.fragment.main.MenuFragment;
 import com.example.readlightnovel.fragment.search.SearchFragment;
-import com.example.readlightnovel.fragment.main.YourBookFragment;
+import com.example.readlightnovel.fragment.yourbook.YourBookFragment;
 import com.example.readlightnovel.model.comic.Data;
 
 import java.util.List;

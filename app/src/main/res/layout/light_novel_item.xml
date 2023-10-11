@@ -62,4 +62,14 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/ivComic"
         app:layout_constraintStart_toStartOf="@+id/tvInfo" />
+
+    <ImageView
+        android:id="@+id/ivDownLoad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:alpha="0"
+        android:src="@drawable/baseline_cloud_download_24"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

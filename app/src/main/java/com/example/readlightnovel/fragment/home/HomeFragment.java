@@ -15,6 +15,7 @@ import com.example.readlightnovel.api.RequestAPI;
 import com.example.readlightnovel.databinding.FragmentHomeBinding;
 import com.example.readlightnovel.adapter.viewpager.ViewPagerHomeAdapter;
 import com.example.readlightnovel.model.comic.Data;
+import com.example.readlightnovel.utils.NetworkUtils;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -59,6 +60,7 @@ public class HomeFragment extends Fragment {
                     public void onClick(View v) {
                         switch (tabPosition) {
                             case 0:
+                                System.out.println("Check Internet: "+ NetworkUtils.isNetworkAvailable(activity));
                                 break;
                             case 1:
                                 lightNovelAdapter.setData(addListDone());

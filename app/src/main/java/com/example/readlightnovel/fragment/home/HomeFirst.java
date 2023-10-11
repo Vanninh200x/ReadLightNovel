@@ -20,6 +20,7 @@ import com.example.readlightnovel.fragment.genres.DetailGenres;
 import com.example.readlightnovel.interfaces.OnParentClickListener;
 import com.example.readlightnovel.model.uim.LightNovelParent;
 import com.example.readlightnovel.model.comic.Data;
+import com.example.readlightnovel.utils.NetworkUtils;
 import com.example.readlightnovel.utils.desa.DialogUtils;
 
 import java.util.ArrayList;
@@ -53,6 +54,12 @@ public class HomeFirst extends Fragment {
         fragmentManager = getActivity().getSupportFragmentManager();
         mListParent = new ArrayList<>();
         mListData = new ArrayList<>();
+
+        if (!NetworkUtils.isNetworkAvailable(getActivity())){
+            binding.frameLayout.setVisibility(View.VISIBLE);
+        }else{
+            binding.frameLayout.setVisibility(View.GONE);
+        }
     }
 
     private void showRecyclerView() {

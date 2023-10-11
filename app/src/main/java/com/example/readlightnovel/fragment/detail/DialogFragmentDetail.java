@@ -1,6 +1,10 @@
 package com.example.readlightnovel.fragment.detail;
 
 
+import static com.example.readlightnovel.ReadLightNovelApplication.appDatabase;
+import static com.example.readlightnovel.ReadLightNovelApplication.mChapterSaveList;
+import static com.example.readlightnovel.ReadLightNovelApplication.mSaveDataList;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
@@ -10,11 +14,10 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Environment;
 import android.util.Size;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +36,9 @@ import com.example.readlightnovel.adapter.detail.CommentAdapter;
 import com.example.readlightnovel.adapter.viewpager.ViewPagerDetailAdapter;
 import com.example.readlightnovel.api.RequestAPI;
 import com.example.readlightnovel.callback.CallBackRate;
+import com.example.readlightnovel.database.AppDatabase;
+import com.example.readlightnovel.database.ChapterSave;
+import com.example.readlightnovel.database.SaveData;
 import com.example.readlightnovel.databinding.DialogFragmentDetailBinding;
 import com.example.readlightnovel.model.comic.Data;
 import com.example.readlightnovel.model.rate.PickRate;
@@ -40,23 +46,31 @@ import com.example.readlightnovel.utils.desa.BitmapEffectUtils;
 import com.example.readlightnovel.utils.desa.BitmapUtils;
 import com.example.readlightnovel.utils.desa.DialogUtils;
 import com.example.readlightnovel.utils.desa.SizeUtils;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class DialogFragmentDetail extends DialogFragment implements CallBackRate {
     private Dialog dialog;
     private Activity activity;
     private DialogFragmentDetailBinding binding;
-    private Data data;
-    private String[] title = {"Description", "Chapters", "Comments"};
+    private final Data data;
+    private final String[] title = {"Description", "Chapters", "Comments"};
     private List<com.example.readlightnovel.model.chapter.Data> mListChapter;
     private List<com.example.readlightnovel.model.comment.Data> mListComment;
     private CommentAdapter commentAdapter;
     private List<Data> mListMakeRate;
+    private Executor executor;
+    private String pathImage;
 
 
     public DialogFragmentDetail(Data data) {
@@ -72,7 +86,6 @@ public class DialogFragmentDetail extends DialogFragment implements CallBackRate
         dialog.setContentView(binding.getRoot());
         init();
         getChapter();
-
         initData();
         initThemes();
         initListener();
@@ -84,6 +97,7 @@ public class DialogFragmentDetail extends DialogFragment implements CallBackRate
         mListComment = new ArrayList<>();
         commentAdapter = new CommentAdapter(mListComment);
         mListMakeRate = new ArrayList<>();
+        executor = Executors.newSingleThreadExecutor();
     }
 
     private void initListener() {
@@ -91,18 +105,103 @@ public class DialogFragmentDetail extends DialogFragment implements CallBackRate
             final int tabPosition = i;
             TabLayout.Tab tab = binding.tabLayout.getTabAt(i);
             if (tab != null) {
-                tab.view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (tabPosition == 2) {
-                            commentAdapter.setData(addComment());
-                        }
+                tab.view.setOnClickListener(v -> {
+                    if (tabPosition == 2) {
+                        commentAdapter.setData(addComment());
                     }
                 });
             }
         }
 
+        binding.include.ivComic.setOnClickListener(v -> {
+            executor.execute(() -> {
+//                System.out.println("DBChapter: "+appDatabase.saveDataDAO().getAll() +"");
+            });
 
+        });
+
+
+        binding.include.ivDownLoad.setOnClickListener(v -> {
+            saveImageFromUrl(data.getAvatarUrl(), data.getId());
+
+        });
+    }
+
+
+    private void saveImageFromUrl(String imageUrl, int id) {
+        Picasso.get().load(imageUrl).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                try {
+                    // Lấy thư mục cache của ứng dụng
+                    File cacheDir = getContext().getCacheDir();
+
+                    // Xây dựng tên tệp tin cho ảnh hoặc sử dụng tên từ URL (nếu có)
+                    String fileName = "save_img" + id + ".jpg";
+
+                    // Tạo tệp tin trong thư mục cache
+                    File imageFile = new File(cacheDir, fileName);
+
+                    // Ghi dữ liệu ảnh vào tệp tin
+                    FileOutputStream fos = new FileOutputStream(imageFile);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                    fos.flush();
+                    fos.close();
+
+                    pathImage = cacheDir + "/" + fileName;
+                    System.out.println(pathImage);
+
+                    executor.execute(() -> {
+                        // Thực hiện các thao tác cơ sở dữ liệu ở đây
+                        if (appDatabase.saveDataDAO().getSaveDataById(data.getId()) == null) {
+                            appDatabase.saveDataDAO().insertData(convertSaveData(data, pathImage));
+                            mSaveDataList.add(appDatabase.saveDataDAO().getSaveDataById(data.getId()));
+                        }
+
+                        if (mListChapter != null) {
+                            for (com.example.readlightnovel.model.chapter.Data data1 : mListChapter) {
+                                appDatabase.saveDataDAO().insertChapter(convertChapterSave(data1));
+                                System.out.println("Chapter: "+ data1+"");
+                            }
+                        }
+                    });
+                    Toast.makeText(activity, "Lưu ảnh thành công", Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    // Xử lý lỗi khi lưu ảnh thất bại
+                }
+            }
+
+            @Override
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        });
+    }
+
+    private SaveData convertSaveData(Data data, String path) {
+        SaveData saveData = new SaveData();
+        saveData.setId(data.getId());
+        saveData.setAvatarUrl(path);
+        saveData.setStatus(data.isStatus());
+        saveData.setDescription(data.getDescription());
+        saveData.setTitle(data.getTitle());
+        saveData.setDone(data.isDone());
+        saveData.setStar(data.getStar());
+        saveData.setCategory(data.getCategory());
+        saveData.setChapter(data.getChapter());
+        System.out.println(saveData.toString());
+        return saveData;
+    }
+
+    private ChapterSave convertChapterSave(com.example.readlightnovel.model.chapter.Data data) {
+        ChapterSave chapterSave = new ChapterSave(data.getBookId(), data.getName(), data.getNumber(), data.getChapterTitle(), data.getContent());
+        return chapterSave;
     }
 
     private void getChapter() {
@@ -156,6 +255,8 @@ public class DialogFragmentDetail extends DialogFragment implements CallBackRate
 
         binding.include.tvTitle.setTextColor(Color.WHITE);
         binding.include.tvInfo.setTextColor(Color.WHITE);
+        binding.include.ivDownLoad.setColorFilter(Color.WHITE);
+        binding.include.ivDownLoad.setAlpha(1f);
     }
 
     private void initToolBar() {

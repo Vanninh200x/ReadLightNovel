@@ -26,6 +26,7 @@ import com.example.readlightnovel.fragment.sub.DialogSignInFragment;
 import com.example.readlightnovel.callback.CallBackUser;
 import com.example.readlightnovel.model.uim.ItemMenu;
 import com.example.readlightnovel.model.user.Data;
+import com.example.readlightnovel.utils.NetworkUtils;
 import com.example.readlightnovel.utils.desa.DialogUtils;
 import com.orhanobut.hawk.Hawk;
 
@@ -75,6 +76,12 @@ public class MenuFragment extends Fragment implements CallBackUser {
 
         parentLayout = (ViewGroup) binding.imgUser.getParent();
         index = parentLayout.indexOfChild(binding.imgUser);
+
+        if (!NetworkUtils.isNetworkAvailable(getActivity())){
+            binding.frameLayout.setVisibility(View.VISIBLE);
+        }else{
+            binding.frameLayout.setVisibility(View.GONE);
+        }
     }
 
     private void setView() {

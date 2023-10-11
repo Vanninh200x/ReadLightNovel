@@ -8,6 +8,8 @@ public class Data {
     private String chapterTitle;
     private String content;
 
+
+
     public Data(int bookId, String name, String number, String chapterTitle, String content) {
         this.bookId = bookId;
         this.name = name;
